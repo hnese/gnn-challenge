@@ -13,7 +13,7 @@ Resting-state BOLD signals contain meaningful information beyond the conventiona
 Frequency Bands
 
 The BOLD signal (0.01–0.23 Hz) is divided into 7 equal-width frequency bands:
-Band	Frequency Range (Hz)
+Band	Frequency Range (Hz) \\
 fb1	0.011 – 0.038
 fb2	0.043 – 0.071
 fb3	0.076 – 0.103
