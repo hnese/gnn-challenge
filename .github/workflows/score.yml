@@ -1,5 +1,5 @@
 name: Score Level A submission
-
+ 
 on:
   workflow_dispatch:
     inputs:
