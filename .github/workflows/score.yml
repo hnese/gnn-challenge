@@ -1,5 +1,5 @@
-name:  Score submission
- 
+name: Score submission
+
 on:
   workflow_dispatch:
     inputs:
@@ -26,10 +26,10 @@ jobs:
           python -m pip install --upgrade pip
           pip install pandas scikit-learn
 
-      - name: Recreate hidden labels
+      - name: Recreate hidden labels (shared)
         run: |
-          mkdir -p data/level_a
-          printf "%s" "${{ secrets.TEST_LABELS_CSV }}" > data/level_a/test_label.csv
+          mkdir -p data
+          printf "%s" "${{ secrets.TEST_LABELS_CSV }}" > data/test_labels.csv
 
       - name: Run scoring
         run: |
