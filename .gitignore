@@ -1,8 +1,6 @@
 # 
 # Hidden test labels
-data/level_a/test_label.csv
-data/level_b/test_label.csv
-
+data/test_labels.csv
 
 # Byte-compiled / optimized / DLL files
 __pycache__/
