@@ -33,11 +33,34 @@ jobs:
           
       - name: Debug - show file sizes and headers
         run: |
-          ls -la submissions
+          echo "=== submissions ==="
+          ls -la submissions || true
+          echo "=== sample submission preview ==="
           wc -c submissions/sample_submission.csv || true
           head -n 5 submissions/sample_submission.csv || true
+
+          echo "=== truth file preview ==="
+          ls -la data || true
           wc -c data/test_labels.csv || true
           head -n 5 data/test_labels.csv || true
+
+          echo "=== python column check ==="
+          python - <<'PY'
+          import pandas as pd
+
+          def check(path):
+              print(f"\n--- Reading: {path}")
+              with open(path, "r", encoding="utf-8", errors="replace") as f:
+                  first = f.read(200)
+              print("First 200 chars:", repr(first))
+              df = pd.read_csv(path)
+              print("Columns:", df.columns.tolist())
+              print("Shape:", df.shape)
+
+          check("submissions/sample_submission.csv")
+          check("data/test_labels.csv")
+          PY
+
           
       - name: Run scoring
         run: |
