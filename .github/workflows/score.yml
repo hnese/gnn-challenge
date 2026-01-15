@@ -6,7 +6,7 @@ on:
       submission_path:
         description: "Path to submission CSV"
         required: true
-        default: "submissions/sample_submission.csv""
+        default: "submissions/sample_submission.csv"
 
 jobs:
   score:
