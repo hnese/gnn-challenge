@@ -1,4 +1,4 @@
-name: Score Level A submission
+name:  Score submission
  
 on:
   workflow_dispatch:
