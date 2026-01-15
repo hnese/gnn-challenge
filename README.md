@@ -95,3 +95,26 @@ data/level_a/
 ├── train.csv
 ├── test.csv
 └── test_label.csv   # hidden for participants
+
+---
+
+### 🔹 Level B — Full Graph Learning (Node + Edge Features)
+
+- **Edges:** Fixed topology with **7-band edge weights**
+- **Nodes:** 16 node features per node
+- **Task:** Graph-level classification using **node + edge features**
+
+**Data location:**
+```text
+data/level_b/
+├── edge_index.mat
+├── edge_attr.mat
+├── node_features.mat
+├── node_labels.mat
+├── train_idx.mat
+├── test_idx.mat
+├── y_train.mat
+└── split_idx.mat
+
+
+
