@@ -1,0 +1,36 @@
+name: Score Level A submission
+
+on:
+  workflow_dispatch:
+    inputs:
+      submission_path:
+        description: "Path to submission CSV"
+        required: true
+        default: "submissions/submission_level_a.csv"
+
+jobs:
+  score:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout repo
+        uses: actions/checkout@v4
+
+      - name: Set up Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: "3.11"
+
+      - name: Install deps
+        run: |
+          python -m pip install --upgrade pip
+          pip install pandas scikit-learn
+
+      - name: Recreate hidden labels
+        run: |
+          mkdir -p data/level_a
+          printf "%s" "${{ secrets.LEVEL_A_TEST_LABEL_CSV }}" > data/level_a/test_label.csv
+
+      - name: Run scoring
+        run: |
+          python scoring_script.py "${{ github.event.inputs.submission_path }}"
