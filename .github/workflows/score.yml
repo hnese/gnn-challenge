@@ -30,7 +30,15 @@ jobs:
         run: |
           mkdir -p data
           printf "%s" "${{ secrets.TEST_LABELS_CSV }}" > data/test_labels.csv
-
+          
+      - name: Debug - show file sizes and headers
+        run: |
+          ls -la submissions
+          wc -c submissions/sample_submission.csv || true
+          head -n 5 submissions/sample_submission.csv || true
+          wc -c data/test_labels.csv || true
+          head -n 5 data/test_labels.csv || true
+          
       - name: Run scoring
         run: |
           python scoring_script.py "${{ github.event.inputs.submission_path }}"
