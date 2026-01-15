@@ -29,7 +29,7 @@ jobs:
       - name: Recreate hidden labels
         run: |
           mkdir -p data/level_a
-          printf "%s" "${{ secrets.LEVEL_A_TEST_LABEL_CSV }}" > data/level_a/test_label.csv
+          printf "%s" "${{ secrets.TEST_LABELS_CSV }}" > data/level_a/test_label.csv
 
       - name: Run scoring
         run: |
