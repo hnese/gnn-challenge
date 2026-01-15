@@ -45,8 +45,8 @@ submission = pd.DataFrame({
 })
 
 submission.to_csv(
-    '/Users/huden/Desktop/Study/minichallange/submissions/submission_level_a.csv',
+    '/Users/huden/Desktop/Study/minichallange/submissions/sample_submission.csv',
     index=False
 )
 
-print('Saved: submissions/submission_level_a.csv')
+print('Saved: submissions/sample_submission.csv')
