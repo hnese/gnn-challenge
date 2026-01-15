@@ -128,3 +128,8 @@ data/level_b/
 - **`train_idx.mat`, `test_idx.mat`** — Subject indices for splits
 - **`y_train.mat`** — Training labels (0 = low, 1 = high)
 
+### 🧮 Evaluation
+- **Metric:** Macro-averaged F1 score
+- **Task type:** Binary classification
+- **Evaluation level:** Graph-level
+- **Test labels:** Hidden (organizer-only)
