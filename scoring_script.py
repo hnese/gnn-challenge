@@ -1,22 +1,11 @@
 import argparse
 import json
 import sys
+from pathlib import Path
 
 import pandas as pd
 from sklearn.metrics import f1_score
 
-- name: Check secret is present
-  env:
-    TEST_LABELS_CSV: ${{ secrets.TEST_LABELS_CSV }}
-  run: |
-    if [ -z "$TEST_LABELS_CSV" ]; then
-      echo "Secret TEST_LABELS_CSV is EMPTY or not set"
-      exit 1
-    fi
-    echo "Secret TEST_LABELS_CSV is present (length: ${#TEST_LABELS_CSV})"
-    mkdir -p data
-    printf "%s" "$TEST_LABEL_CSV" > data/test_labels.csv
-    test -s data/test_labels.csv
 
 TRUTH_PATH = "data/test_labels.csv"
 
@@ -29,15 +18,42 @@ def validate(df, name):
         raise ValueError(f"{name} has duplicate ids. Each id must appear once.")
 
     # Convert target to int and validate values
-    df["target"] = df["target"].astype(int)
+    try:
+        df["target"] = df["target"].astype(int)
+    except Exception as e:
+        raise ValueError(f"{name} target column cannot be converted to int: {e}")
+
     invalid = set(df["target"].unique()) - {0, 1}
     if invalid:
         raise ValueError(f"{name} has invalid target values: {sorted(invalid)}. Allowed: 0,1.")
 
 
 def score(submission_file, truth_path=TRUTH_PATH):
-    sub = pd.read_csv(submission_file)
-    truth = pd.read_csv(truth_path)
+    # Read submission
+    try:
+        sub = pd.read_csv(submission_file)
+    except Exception as e:
+        raise ValueError(f"Could not read submission CSV at {submission_file}: {e}")
+
+    # Fail fast if truth is missing/empty (common in CI when secret not injected)
+    p = Path(truth_path)
+    if not p.exists():
+        raise FileNotFoundError(
+            f"Truth file not found at: {truth_path}. "
+            f"In CI, create it before scoring (e.g., from a GitHub secret)."
+        )
+    if p.stat().st_size == 0:
+        raise ValueError(
+            f"Truth file exists but is empty: {truth_path}. "
+            f"This usually means the secret was empty or not available."
+        )
+
+    try:
+        truth = pd.read_csv(truth_path)
+    except pd.errors.EmptyDataError:
+        raise ValueError(f"Truth file has no columns to parse (empty or invalid CSV): {truth_path}")
+    except Exception as e:
+        raise ValueError(f"Could not read truth CSV at {truth_path}: {e}")
 
     validate(sub, "submission")
     validate(truth, "truth")
