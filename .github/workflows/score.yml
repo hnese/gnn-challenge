@@ -26,12 +26,29 @@ jobs:
           python -m pip install --upgrade pip
           pip install pandas scikit-learn
 
-      - name: Recreate hidden labels (shared)
+      - name: Recreate hidden labels from secret
+        shell: bash
+        env:
+          TEST_LABEL_CSV: ${{ secrets.TEST_LABEL_CSV }}
         run: |
+          # Fail fast if secret is missing/empty
+          if [ -z "$TEST_LABEL_CSV" ]; then
+            echo "ERROR: Secret TEST_LABEL_CSV is empty or not set."
+            echo "Check Settings -> Secrets and variables -> Actions -> Repository secrets."
+            exit 1
+          fi
+
           mkdir -p data
-          printf "%s" "${{ secrets.TEST_LABELS_CSV }}" > data/test_labels.csv
-          
+          printf "%s" "$TEST_LABEL_CSV" > data/test_labels.csv
+
+          # Ensure file is non-empty
+          if [ ! -s data/test_labels.csv ]; then
+            echo "ERROR: data/test_labels.csv was created but is empty."
+            exit 1
+          fi
+
       - name: Debug - show file sizes and headers
+        shell: bash
         run: |
           echo "=== submissions ==="
           ls -la submissions || true
@@ -61,7 +78,6 @@ jobs:
           check("data/test_labels.csv")
           PY
 
-          
       - name: Run scoring
         run: |
           python scoring_script.py "${{ github.event.inputs.submission_path }}"
