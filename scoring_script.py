@@ -5,6 +5,18 @@ import sys
 import pandas as pd
 from sklearn.metrics import f1_score
 
+- name: Check secret is present
+  env:
+    TEST_LABELS_CSV: ${{ secrets.TEST_LABELS_CSV }}
+  run: |
+    if [ -z "$TEST_LABELS_CSV" ]; then
+      echo "Secret TEST_LABELS_CSV is EMPTY or not set"
+      exit 1
+    fi
+    echo "Secret TEST_LABELS_CSV is present (length: ${#TEST_LABELS_CSV})"
+    mkdir -p data
+    printf "%s" "$TEST_LABEL_CSV" > data/test_labels.csv
+    test -s data/test_labels.csv
 
 TRUTH_PATH = "data/test_labels.csv"
 
