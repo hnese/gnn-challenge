@@ -93,7 +93,6 @@ Participants may use **any graph neural network architecture**
 data/level_a/
 ├── train.csv
 ├── test.csv
-└── test_label.csv   # hidden for participants
 ```
 ---
 
@@ -108,24 +107,24 @@ data/level_a/
 **Data location:**
 ```text
 data/level_b/
-├── edge_index.mat
-├── edge_attr.mat
-├── node_features.mat
-├── node_labels.mat
-├── train_idx.mat
-├── test_idx.mat
-├── y_train.mat
-└── split_idx.mat
+├── edge_index.mat          # Shared graph topology
+├── node_labels.mat         # Shared region names
+├── train/
+│   ├── node_features.mat   # (400 × 16 × nTrain)
+│   ├── edge_attr.mat       # (E × 7 × nTrain)
+│   ├── y_train.mat         # Training labels
+└── test/
+    ├── node_features.mat   # (400 × 16 × nTest)
+    ├── edge_attr.mat       # (E × 7 × nTest)
 ```
 ---
 
 ### 📂 Level B File Descriptions
 
 - **`edge_index.mat`** — Edge list defining the common graph topology
-- **`edge_attr.mat`** — Frequency-resolved edge weights (7 per edge)
-- **`node_features.mat`** — Node features (400 × subjects × 16)
 - **`node_labels.mat`** — Parcel / network labels (optional, for interpretation)
-- **`train_idx.mat`, `test_idx.mat`** — Subject indices for splits
+- **`edge_attr.mat`** — Frequency-resolved edge weights (7 per edge)
+- **`node_features.mat`** — Node features
 - **`y_train.mat`** — Training labels (0 = low, 1 = high)
 
 ### 🧮 Evaluation
