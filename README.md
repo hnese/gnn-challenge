@@ -31,9 +31,6 @@ The BOLD signal (0.01–0.23 Hz) is divided into **7 equal-width frequency bands
 
 ---
 
-<img width="1297" height="529" alt="Data" src="https://github.com/user-attachments/assets/24cacc20-9b57-4b3e-96d3-194a9901d6d8" />
-
-
 ## 🧩 Dataset Construction
 
 - **Subjects:** 96 healthy participants (Human Connectome Project)
@@ -44,6 +41,17 @@ The BOLD signal (0.01–0.23 Hz) is divided into **7 equal-width frequency bands
   *(median split of PMAT24_A_CR)*
 
 ---
+
+<img width="1297" height="529" alt="Data" src="https://github.com/user-attachments/assets/24cacc20-9b57-4b3e-96d3-194a9901d6d8" />
+**Figure:**  
+(a) Graph structure with node-level features,  
+(b) adjacency matrix \(A\),  
+(c) node feature matrix \(X \in \mathbb{R}^{D \times N}\),  
+(d) edge feature matrix \(E \in \mathbb{R}^{D_E \times E}\).
+
+> The baseline model uses only node-level features (X).  
+> Graph structure (A) and edge attributes (E) are provided for advanced models.
+
 
 ## 🧠 Network Metrics (Node Features)
 
