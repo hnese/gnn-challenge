@@ -31,6 +31,9 @@ The BOLD signal (0.01–0.23 Hz) is divided into **7 equal-width frequency bands
 
 ---
 
+<img width="1297" height="529" alt="Data" src="https://github.com/user-attachments/assets/24cacc20-9b57-4b3e-96d3-194a9901d6d8" />
+
+
 ## 🧩 Dataset Construction
 
 - **Subjects:** 96 healthy participants (Human Connectome Project)
