@@ -45,13 +45,30 @@ The BOLD signal (0.01–0.23 Hz) is divided into **7 equal-width frequency bands
 <img width="1297" height="529" alt="Data" src="https://github.com/user-attachments/assets/24cacc20-9b57-4b3e-96d3-194a9901d6d8" />
 
 **Figure:**  
-(a) Graph structure with node-level features,  
-(b) adjacency matrix \(A\),  
+(a) Graph structure with node and edge attributes,  
+(b) adjacency matrix representing the shared graph \(A\),  
 (c) node feature matrix \(X \in \mathbb{R}^{D \times N}\),  
 (d) edge feature matrix \(E \in \mathbb{R}^{D_E \times E}\).
 
 > The baseline model uses only node-level features (X).  
 > Graph structure (A) and edge attributes (E) are provided for advanced models.
+
+
+---
+
+## 🧠 Canonical Graph Representation
+
+Each subject is represented as **one graph**:
+
+- **Nodes:** 400 brain parcels  
+- **Edges:**  
+  - Common, group-level topology  
+  - Thresholded mean functional connectivity (**top 30%**)  
+- **Node features:** 16 features per node  
+- **Edge features:** 7 frequency-band–specific weights  
+- **Graph label:** Binary (High vs Low PMAT performance)
+
+👉 **This is a graph-level binary classification problem.**
 
 
 ## 🧠 Network Metrics (Node Features)
@@ -66,23 +83,6 @@ Computed using a **generalized modularity algorithm** for multilayer networks:
 ➡️ **Total node features per parcel: 16**
 
 ---
-
-## 🧠 Canonical Graph Representation
-
-Each subject is represented as **one graph**:
-
-- **Nodes:** 400 brain parcels  
-- **Edges:**  
-  - Common, group-level topology  
-  - Thresholded functional connectivity (**top 30%**)  
-- **Node features:** 16 features per node  
-- **Edge features:** 7 frequency-band–specific weights  
-- **Graph label:** Binary (High vs Low PMAT performance)
-
-👉 **This is a graph-level binary classification problem.**
-
----
-
 ## 🎯 Task Description
 
 **Goal:**  
