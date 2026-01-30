@@ -42,6 +42,37 @@ The BOLD signal (0.01–0.23 Hz) is divided into **7 equal-width frequency bands
 
 ---
 
+<img width="1297" height="529" alt="Data" src="https://github.com/user-attachments/assets/24cacc20-9b57-4b3e-96d3-194a9901d6d8" />
+
+**Figure:**  
+(a) Graph structure with node and edge features,  
+(b) adjacency matrix ($A$) representing the shared graph ($N = 400$, number of parcels),  
+(c) node feature matrix ($D = 6400$, number of node feature; $N = 400$, number of parcels),  
+(d) edge feature matrix ($D_E = 7$, number of frequency bands; $E = 47880$, number of edge).
+
+> The baseline model uses only node-level features (X).  
+> Graph structure (A) and edge attributes (E) are provided for advanced models. More specifically, graph structure (A) is provided as an edge list (edge_index.mat).
+> 
+> A single, fixed train–test split is used across all feature representations.
+
+
+---
+
+## 🧠 Canonical Graph Representation
+
+Each subject is represented as **one graph**:
+
+- **Nodes:** 400 brain parcels  
+- **Edges:**  
+  - Common, group-level topology  
+  - Thresholded mean functional connectivity (**top 30%**)  
+- **Node features:** 16 features per node  
+- **Edge features:** 7 frequency-band–specific weights  
+- **Graph label:** Binary (High vs Low PMAT performance)
+
+👉 **This is a graph-level binary classification problem.**
+
+
 ## 🧠 Network Metrics (Node Features)
 
 Computed using a **generalized modularity algorithm** for multilayer networks:
@@ -54,30 +85,12 @@ Computed using a **generalized modularity algorithm** for multilayer networks:
 ➡️ **Total node features per parcel: 16**
 
 ---
-
-## 🧠 Canonical Graph Representation
-
-Each subject is represented as **one graph**:
-
-- **Nodes:** 400 brain parcels  
-- **Edges:**  
-  - Common, group-level topology  
-  - Thresholded functional connectivity (**top 30%**)  
-- **Node features:** 16 features per node  
-- **Edge features:** 7 frequency-band–specific weights  
-- **Graph label:** Binary (High vs Low PMAT performance)
-
-👉 **This is a graph-level binary classification problem.**
-
----
-
 ## 🎯 Task Description
 
 **Goal:**  
 Predict whether a subject belongs to the **high-performance** or **low-performance** group based on their brain network.
 
-Participants may use **any graph neural network architecture**  
-(GCN, GAT, Graph Transformer, MPNN, etc.).
+Participants may use **any graph neural network architecture**  (GCN, GAT, Graph Transformer, MPNN, etc.).
 
 ---
 
